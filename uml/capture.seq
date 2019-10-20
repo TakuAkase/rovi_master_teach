@@ -1,9 +1,14 @@
+@startuml
 title request/response capture
-
-rscoket->cropper:request
+rsocket->cropper:capture
+cropper->TF:.../captureN
 cropper->rovi:X1
-rovi->cropper:Y1
-cropper->rscoket:response
-opt:Y1 is True
+rovi-->cropper:Y1
+alt Y1 is True
+cropper->rsocket:capture True
 rovi->cropper:ps
-cropper->searcher:output
+cropper->searcher:ps_float:surface
+else
+cropper->rsocket:capture False
+end
+@enduml
